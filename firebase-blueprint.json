@@ -1,0 +1,28 @@
+{
+  "entities": {
+    "users": {
+      "fields": {
+        "email": "string",
+        "displayName": "string",
+        "role": "string",
+        "balance": "number",
+        "studentId": "string",
+        "merchantName": "string",
+        "createdAt": "timestamp"
+      }
+    },
+    "transactions": {
+      "fields": {
+        "senderId": "string",
+        "senderName": "string",
+        "receiverId": "string",
+        "receiverName": "string",
+        "amount": "number",
+        "type": "string",
+        "category": "string",
+        "description": "string",
+        "timestamp": "timestamp"
+      }
+    }
+  }
+}
