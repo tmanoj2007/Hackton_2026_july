@@ -2,9 +2,11 @@
   "entities": {
     "users": {
       "fields": {
+        "name": "string",
         "email": "string",
-        "displayName": "string",
+        "wallet": "number",
         "role": "string",
+        "displayName": "string",
         "balance": "number",
         "studentId": "string",
         "merchantName": "string",
@@ -13,12 +15,15 @@
     },
     "transactions": {
       "fields": {
+        "userId": "string",
+        "amount": "number",
+        "merchant": "string",
+        "type": "string",
+        "date": "timestamp",
         "senderId": "string",
         "senderName": "string",
         "receiverId": "string",
         "receiverName": "string",
-        "amount": "number",
-        "type": "string",
         "category": "string",
         "description": "string",
         "timestamp": "timestamp"
