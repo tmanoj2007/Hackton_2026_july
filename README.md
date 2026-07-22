@@ -48,7 +48,7 @@ public/
 ### Clone the repository
 
 ```bash
-git clone https://github.com/YOUR-USERNAME/YOUR-REPOSITORY.git
+https://github.com/tmanoj2007/Hackton_2026_july.git
 ```
 
 ### Install dependencies
