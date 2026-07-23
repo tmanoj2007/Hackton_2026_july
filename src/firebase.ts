@@ -2,25 +2,18 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
-import firebaseConfigJson from "../firebase-applet-config.json";
-
-// Configuration loaded from firebase-applet-config.json
 const firebaseConfig = {
-  apiKey: firebaseConfigJson.apiKey || "AIzaSyAl_NsImbafh8DeeEDEx_GqtRanMwG6iNA",
-  authDomain: firebaseConfigJson.authDomain || "divine-transport-7n50x.firebaseapp.com",
-  projectId: firebaseConfigJson.projectId || "divine-transport-7n50x",
-  storageBucket: firebaseConfigJson.storageBucket || "divine-transport-7n50x.firebasestorage.app",
-  messagingSenderId: firebaseConfigJson.messagingSenderId || "898763850305",
-  appId: firebaseConfigJson.appId || "1:898763850305:web:551f7e11f6349ac077fcc0"
+  apiKey: "AIzaSyAazApXr00a3BZ3jb-KFfNrUP1CPXNFDxQ",
+  authDomain: "campuswallethackathon.firebaseapp.com",
+  projectId: "campuswallethackathon",
+  storageBucket: "campuswallethackathon.firebasestorage.app",
+  messagingSenderId: "109089162220",
+  appId: "1:109089162220:web:531d4108d2909dc07836c9"
 };
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 
-// Use getFirestore and specify the custom database ID from the provisioned configurations
-const db = getFirestore(
-  app, 
-  firebaseConfigJson.firestoreDatabaseId || "ai-studio-campuswallet-75108920-5b4f-4852-816e-49d7e9e9bf7c"
-);
+export const auth = getAuth(app);
+export const db = getFirestore(app);
 
-export { app, auth, db };
+export default app;
