@@ -279,7 +279,7 @@ export default function App() {
               <Wallet className="h-5 w-5" />
             </div>
             <div>
-              <span className="text-sm font-extrabold text-blue-900 tracking-tight block">BlueRidge State</span>
+              <span className="text-sm font-extrabold text-blue-900 tracking-tight block">Campex 2.0 State</span>
               <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest block -mt-0.5">Campus Wallet</span>
             </div>
           </div>
