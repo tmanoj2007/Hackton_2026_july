@@ -3,17 +3,14 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAazApXr00a3BZ3jb-KFfNrUP1CPXNFDxQ",
-  authDomain: "campuswallethackathon.firebaseapp.com",
-  projectId: "campuswallethackathon",
-  storageBucket: "campuswallethackathon.firebasestorage.app",
-  messagingSenderId: "109089162220",
-  appId: "1:109089162220:web:531d4108d2909dc07836c9"
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_AUTH_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID"
 };
 
 const app = initializeApp(firebaseConfig);
-
 export const auth = getAuth(app);
 export const db = getFirestore(app);
-
-export default app;
