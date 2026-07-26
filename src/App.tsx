@@ -10,14 +10,14 @@ import AdminScreen from './components/AdminScreen';
 export default function App() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'wallet' | 'payment' | 'history' | 'tips' | 'parent' | 'admin'>('dashboard');
 
-  // Helper function to switch tabs from sub-components
-  const handleNavigate = (tab: string) => {
-    setActiveTab(tab as any);
+  // Callback expected by DashboardScreen / PaymentScreen
+  const handleNavigate = (screen: string) => {
+    setActiveTab(screen as any);
   };
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
-      {/* Navigation Header */}
+      {/* Header */}
       <header className="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
@@ -91,11 +91,11 @@ export default function App() {
         </div>
       </header>
 
-      {/* Screen Rendering with Required Props */}
+      {/* Screen Views */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {activeTab === 'dashboard' && <DashboardScreen onNavigate={handleNavigate} />}
-        {activeTab === 'wallet' && <WalletScreen />}
-        {activeTab === 'payment' && <PaymentScreen onSuccess={() => setActiveTab('history')} />}
+        {activeTab === 'wallet' && <WalletScreen onNavigate={handleNavigate} />}
+        {activeTab === 'payment' && <PaymentScreen onSuccess={() => handleNavigate('history')} onCancel={() => handleNavigate('dashboard')} />}
         {activeTab === 'history' && <HistoryScreen />}
         {activeTab === 'tips' && <TipsScreen />}
         {activeTab === 'parent' && <ParentPortalScreen />}
