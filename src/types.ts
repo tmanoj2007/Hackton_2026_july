@@ -1,4 +1,4 @@
-export type UserRole = "student" | "parent" | "merchant" | "admin";
+export type UserRole = 'student' | 'parent' | 'merchant' | 'admin';
 
 export interface CampusUser {
   uid: string;
@@ -11,4 +11,26 @@ export interface CampusUser {
   createdAt: number;
   studentId?: string;
   merchantName?: string;
+  parentEmail?: string;
+}
+
+export interface Transaction {
+  id: string;
+  userId: string;
+  userName: string;
+  amount: number;
+  type: 'debit' | 'credit';
+  category: 'canteen' | 'stationery' | 'printing' | 'tuition' | 'topup';
+  description: string;
+  timestamp: number;
+  status: 'success' | 'pending' | 'failed';
+  merchantId?: string;
+}
+
+export interface AITip {
+  id: string;
+  title: string;
+  content: string;
+  category: 'budget' | 'saving' | 'canteen' | 'general';
+  timestamp: number;
 }
