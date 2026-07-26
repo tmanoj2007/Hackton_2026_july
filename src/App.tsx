@@ -17,16 +17,11 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<string>('dashboard');
 
   useEffect(() => {
-    try {
-      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-        setUser(currentUser);
-        setLoading(false);
-      });
-      return () => unsubscribe();
-    } catch (err) {
-      console.error("Auth initialization error:", err);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
       setLoading(false);
-    }
+    });
+    return () => unsubscribe();
   }, []);
 
   const handleNavigate = (tab: any) => {
@@ -41,21 +36,16 @@ export default function App() {
     );
   }
 
-  // If user is not logged in, render Login screen
   if (!user) {
     return <LoginScreen />;
   }
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
-      {/* Header Navigation */}
       <header className="bg-white border-b border-slate-200 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center gap-4">
-            <div 
-              className="flex items-center gap-2 cursor-pointer" 
-              onClick={() => setActiveTab('dashboard')}
-            >
+            <div className="flex items-center gap-2 cursor-pointer" onClick={() => setActiveTab('dashboard')}>
               <div className="bg-blue-600 text-white p-2 rounded-lg font-bold text-sm">CW</div>
               <div>
                 <h1 className="font-bold text-slate-900 leading-none">Campus Wallet</h1>
@@ -80,7 +70,6 @@ export default function App() {
         </div>
       </header>
 
-      {/* Screen Routing */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
         {activeTab === 'dashboard' && <DashboardScreen onNavigate={handleNavigate} />}
         {activeTab === 'wallet' && <WalletScreen onNavigate={handleNavigate} />}
