@@ -16,7 +16,7 @@ import NotificationCenter from './components/NotificationCenter';
 export default function App() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState<'dashboard' | 'wallet' | 'payment' | 'history' | 'tips' | 'parent' | 'admin'>('dashboard');
+  const [activeTab, setActiveTab] = useState<string>('dashboard');
   const [showProfile, setShowProfile] = useState(false);
 
   useEffect(() => {
@@ -27,8 +27,8 @@ export default function App() {
     return () => unsubscribe();
   }, []);
 
-  const handleNavigate = (tab: string) => {
-    setActiveTab(tab as any);
+  const handleNavigate = (tab: any) => {
+    setActiveTab(String(tab));
   };
 
   if (loading) {
@@ -45,11 +45,10 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
-      {/* Header */}
+      {/* Header Navigation */}
       <header className="bg-white border-b border-slate-200 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center gap-4">
-            {/* Logo */}
             <div 
               className="flex items-center gap-2 cursor-pointer" 
               onClick={() => setActiveTab('dashboard')}
@@ -61,82 +60,34 @@ export default function App() {
               </div>
             </div>
 
-            {/* Navigation Bar */}
             <nav className="flex space-x-1 overflow-x-auto py-2">
-              <button
-                onClick={() => setActiveTab('dashboard')}
-                className={`px-3 py-1.5 text-sm font-medium rounded-md whitespace-nowrap transition-colors ${
-                  activeTab === 'dashboard' ? 'bg-blue-600 text-white' : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                Dashboard
-              </button>
-              <button
-                onClick={() => setActiveTab('wallet')}
-                className={`px-3 py-1.5 text-sm font-medium rounded-md whitespace-nowrap transition-colors ${
-                  activeTab === 'wallet' ? 'bg-blue-600 text-white' : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                Wallet
-              </button>
-              <button
-                onClick={() => setActiveTab('payment')}
-                className={`px-3 py-1.5 text-sm font-medium rounded-md whitespace-nowrap transition-colors ${
-                  activeTab === 'payment' ? 'bg-blue-600 text-white' : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                Pay Canteen
-              </button>
-              <button
-                onClick={() => setActiveTab('history')}
-                className={`px-3 py-1.5 text-sm font-medium rounded-md whitespace-nowrap transition-colors ${
-                  activeTab === 'history' ? 'bg-blue-600 text-white' : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                History
-              </button>
-              <button
-                onClick={() => setActiveTab('tips')}
-                className={`px-3 py-1.5 text-sm font-medium rounded-md whitespace-nowrap transition-colors ${
-                  activeTab === 'tips' ? 'bg-blue-600 text-white' : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                AI Tips
-              </button>
-              <button
-                onClick={() => setActiveTab('parent')}
-                className={`px-3 py-1.5 text-sm font-medium rounded-md whitespace-nowrap transition-colors ${
-                  activeTab === 'parent' ? 'bg-blue-600 text-white' : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                Parent Portal
-              </button>
-              <button
-                onClick={() => setActiveTab('admin')}
-                className={`px-3 py-1.5 text-sm font-medium rounded-md whitespace-nowrap transition-colors ${
-                  activeTab === 'admin' ? 'bg-blue-600 text-white' : 'text-slate-600 hover:bg-slate-100'
-                }`}
-              >
-                Admin
-              </button>
+              {['dashboard', 'wallet', 'payment', 'history', 'tips', 'parent', 'admin'].map((tab) => (
+                <button
+                  key={tab}
+                  onClick={() => setActiveTab(tab)}
+                  className={`px-3 py-1.5 text-sm font-medium rounded-md whitespace-nowrap capitalize transition-colors ${
+                    activeTab === tab ? 'bg-blue-600 text-white' : 'text-slate-600 hover:bg-slate-100'
+                  }`}
+                >
+                  {tab === 'payment' ? 'Pay Canteen' : tab === 'tips' ? 'AI Tips' : tab === 'parent' ? 'Parent Portal' : tab}
+                </button>
+              ))}
             </nav>
 
-            {/* Profile & Notifications */}
             <div className="flex items-center gap-3">
               <NotificationCenter />
               <button
                 onClick={() => setShowProfile(true)}
                 className="w-9 h-9 rounded-full bg-blue-100 text-blue-700 font-semibold flex items-center justify-center hover:bg-blue-200 transition-colors"
-                title="User Profile"
               >
-                {user.email ? user.email.charAt(0).toUpperCase() : 'U'}
+                {user.displayName ? user.displayName.charAt(0).toUpperCase() : user.email ? user.email.charAt(0).toUpperCase() : 'P'}
               </button>
             </div>
           </div>
         </div>
       </header>
 
-      {/* Main Screen Router */}
+      {/* Screen Routing */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
         {activeTab === 'dashboard' && <DashboardScreen onNavigate={handleNavigate} />}
         {activeTab === 'wallet' && <WalletScreen onNavigate={handleNavigate} />}
@@ -152,7 +103,6 @@ export default function App() {
         {activeTab === 'admin' && <AdminScreen />}
       </main>
 
-      {/* Profile Modal */}
       {showProfile && (
         <UserProfileModal 
           user={user} 
