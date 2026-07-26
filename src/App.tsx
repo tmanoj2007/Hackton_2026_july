@@ -10,6 +10,11 @@ import AdminScreen from './components/AdminScreen';
 export default function App() {
   const [activeTab, setActiveTab] = useState<'dashboard' | 'wallet' | 'payment' | 'history' | 'tips' | 'parent' | 'admin'>('dashboard');
 
+  // Helper function to switch tabs from sub-components
+  const handleNavigate = (tab: string) => {
+    setActiveTab(tab as any);
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900">
       {/* Navigation Header */}
@@ -86,11 +91,11 @@ export default function App() {
         </div>
       </header>
 
-      {/* Screen Rendering */}
+      {/* Screen Rendering with Required Props */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {activeTab === 'dashboard' && <DashboardScreen />}
+        {activeTab === 'dashboard' && <DashboardScreen onNavigate={handleNavigate} />}
         {activeTab === 'wallet' && <WalletScreen />}
-        {activeTab === 'payment' && <PaymentScreen />}
+        {activeTab === 'payment' && <PaymentScreen onSuccess={() => setActiveTab('history')} />}
         {activeTab === 'history' && <HistoryScreen />}
         {activeTab === 'tips' && <TipsScreen />}
         {activeTab === 'parent' && <ParentPortalScreen />}
