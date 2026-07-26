@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function App() {
+export function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [balance, setBalance] = useState(500);
 
