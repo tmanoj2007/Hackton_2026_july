@@ -14,55 +14,60 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-40 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center gap-4">
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => setActiveTab('dashboard')}>
-              <div className="bg-blue-600 text-white p-2 rounded-lg font-bold text-sm">CW</div>
-              <div>
-                <h1 className="font-bold text-slate-900 leading-none">Campus Wallet</h1>
-                <span className="text-xs text-slate-500">STUDENT PASS</span>
-              </div>
-            </div>
-
-            <nav className="flex space-x-1 overflow-x-auto py-2">
-              {['dashboard', 'wallet', 'payment', 'history', 'tips'].map((tab) => (
-                <button
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`px-3 py-1.5 text-sm font-medium rounded-md whitespace-nowrap capitalize transition-colors ${
-                    activeTab === tab ? 'bg-blue-600 text-white shadow' : 'text-slate-600 hover:bg-slate-100'
-                  }`}
-                >
-                  {tab === 'payment' ? 'Pay Canteen' : tab === 'tips' ? 'AI Tips' : tab}
-                </button>
-              ))}
-            </nav>
-            <div className="font-semibold text-sm bg-slate-100 px-3 py-1.5 rounded-full text-slate-700">
-              Purnima
-            </div>
+    <div style={{ fontFamily: 'sans-serif', backgroundColor: '#f8fafc', minHeight: '100vh', color: '#0f172a' }}>
+      {/* Header */}
+      <header style={{ backgroundColor: '#ffffff', borderBottom: '1px solid #e2e8f0', padding: '12px 24px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', cursor: 'pointer' }} onClick={() => setActiveTab('dashboard')}>
+          <div style={{ backgroundColor: '#2563eb', color: '#fff', padding: '8px 12px', borderRadius: '8px', fontWeight: 'bold' }}>CW</div>
+          <div>
+            <h1 style={{ margin: 0, fontSize: '18px', fontWeight: 'bold' }}>Campus Wallet</h1>
+            <span style={{ fontSize: '11px', color: '#64748b' }}>STUDENT PASS</span>
           </div>
+        </div>
+
+        <nav style={{ display: 'flex', gap: '8px' }}>
+          {['dashboard', 'wallet', 'payment', 'history', 'tips'].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              style={{
+                padding: '6px 12px',
+                borderRadius: '6px',
+                border: 'none',
+                cursor: 'pointer',
+                fontWeight: 500,
+                textTransform: 'capitalize',
+                backgroundColor: activeTab === tab ? '#2563eb' : '#f1f5f9',
+                color: activeTab === tab ? '#ffffff' : '#475569'
+              }}
+            >
+              {tab === 'payment' ? 'Pay Canteen' : tab === 'tips' ? 'AI Tips' : tab}
+            </button>
+          ))}
+        </nav>
+        <div style={{ fontWeight: 600, fontSize: '14px', backgroundColor: '#f1f5f9', padding: '6px 12px', borderRadius: '20px' }}>
+          Purnima
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
+      {/* Main Content */}
+      <main style={{ maxWidth: '1000px', margin: '24px auto', padding: '0 16px' }}>
         {activeTab === 'dashboard' && (
-          <div className="space-y-6">
-            <div className="bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 text-white shadow-lg">
-              <span className="bg-white/20 text-xs px-2.5 py-1 rounded-full font-medium">ACTIVE STUDENT CARD</span>
-              <h2 className="text-2xl font-bold mt-3">Welcome back, Purnima!</h2>
-              <p className="text-blue-100 text-sm mt-1">Manage your campus expenses and quick payments seamlessly.</p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <div style={{ background: 'linear-gradient(to right, #2563eb, #4f46e5)', borderRadius: '16px', padding: '24px', color: '#fff', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
+              <span style={{ backgroundColor: 'rgba(255,255,255,0.2)', fontSize: '11px', padding: '4px 10px', borderRadius: '20px', fontWeight: '500' }}>ACTIVE STUDENT CARD</span>
+              <h2 style={{ margin: '12px 0 4px 0', fontSize: '24px' }}>Welcome back, Purnima!</h2>
+              <p style={{ margin: 0, fontSize: '14px', color: '#e0e7ff' }}>Manage your campus expenses and quick payments seamlessly.</p>
             </div>
 
-            <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div style={{ backgroundColor: '#ffffff', borderRadius: '16px', padding: '24px', border: '1px solid #e2e8f0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <div>
-                <span className="text-sm text-slate-500 font-medium">Available Balance</span>
-                <div className="text-3xl font-extrabold text-slate-900 mt-1">₹{balance}</div>
+                <span style={{ fontSize: '13px', color: '#64748b', fontWeight: 500 }}>Available Balance</span>
+                <div style={{ fontSize: '32px', fontWeight: '800', marginTop: '4px' }}>₹{balance}</div>
               </div>
               <button 
                 onClick={handlePay}
-                className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-3 rounded-xl shadow transition-all cursor-pointer"
+                style={{ backgroundColor: '#2563eb', color: '#fff', border: 'none', padding: '12px 24px', borderRadius: '12px', fontWeight: '600', cursor: 'pointer', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}
               >
                 Pay Canteen ₹50
               </button>
@@ -71,12 +76,12 @@ export default function App() {
         )}
 
         {activeTab === 'wallet' && (
-          <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
-            <h2 className="text-xl font-bold text-slate-900">Wallet Top-up & Management</h2>
-            <p className="text-slate-600 text-sm">Add funds instantly using UPI or NetBanking.</p>
+          <div style={{ backgroundColor: '#ffffff', borderRadius: '16px', padding: '24px', border: '1px solid #e2e8f0' }}>
+            <h2 style={{ margin: '0 0 8px 0' }}>Wallet Top-up & Management</h2>
+            <p style={{ color: '#64748b', fontSize: '14px', marginBottom: '16px' }}>Add funds instantly using UPI or NetBanking.</p>
             <button 
               onClick={() => setBalance(balance + 100)}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl font-medium shadow transition-all"
+              style={{ backgroundColor: '#059669', color: '#fff', border: 'none', padding: '10px 20px', borderRadius: '10px', fontWeight: 600, cursor: 'pointer' }}
             >
               + Quick Add ₹100
             </button>
@@ -84,14 +89,14 @@ export default function App() {
         )}
 
         {activeTab === 'payment' && (
-          <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4 text-center max-w-md mx-auto">
-            <h2 className="text-xl font-bold text-slate-900">Scan & Pay Canteen</h2>
-            <div className="bg-slate-100 h-48 rounded-xl flex items-center justify-center border-2 border-dashed border-slate-300 text-slate-400 font-medium">
+          <div style={{ backgroundColor: '#ffffff', borderRadius: '16px', padding: '24px', border: '1px solid #e2e8f0', textAlign: 'center', maxWidth: '400px', margin: '0 auto' }}>
+            <h2 style={{ margin: '0 0 16px 0' }}>Scan & Pay Canteen</h2>
+            <div style={{ backgroundColor: '#f1f5f9', height: '180px', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '2px dashed #cbd5e1', color: '#94a3b8', marginBottom: '16px' }}>
               [ QR Scanner Simulation ]
             </div>
             <button 
               onClick={handlePay}
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-xl font-medium shadow"
+              style={{ width: '100%', backgroundColor: '#2563eb', color: '#fff', border: 'none', padding: '12px', borderRadius: '10px', fontWeight: 600, cursor: 'pointer' }}
             >
               Confirm Payment (₹50)
             </button>
@@ -99,31 +104,31 @@ export default function App() {
         )}
 
         {activeTab === 'history' && (
-          <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-4">
-            <h2 className="text-xl font-bold text-slate-900">Transaction History</h2>
-            <div className="divide-y divide-slate-100">
-              <div className="py-3 flex justify-between items-center">
+          <div style={{ backgroundColor: '#ffffff', borderRadius: '16px', padding: '24px', border: '1px solid #e2e8f0' }}>
+            <h2 style={{ margin: '0 0 16px 0' }}>Transaction History</h2>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', paddingBottom: '12px', borderBottom: '1px solid #f1f5f9' }}>
                 <div>
-                  <p className="font-medium text-slate-900">Canteen Purchase</p>
-                  <p className="text-xs text-slate-500">Today, 12:30 PM</p>
+                  <p style={{ margin: 0, fontWeight: 500 }}>Canteen Purchase</p>
+                  <p style={{ margin: '2px 0 0 0', fontSize: '12px', color: '#64748b' }}>Today, 12:30 PM</p>
                 </div>
-                <span className="text-red-600 font-bold">-₹50</span>
+                <span style={{ color: '#dc2626', fontWeight: 'bold' }}>-₹50</span>
               </div>
-              <div className="py-3 flex justify-between items-center">
+              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <div>
-                  <p className="font-medium text-slate-900">Wallet Topup</p>
-                  <p className="text-xs text-slate-500">Yesterday, 10:00 AM</p>
+                  <p style={{ margin: 0, fontWeight: 500 }}>Wallet Topup</p>
+                  <p style={{ margin: '2px 0 0 0', fontSize: '12px', color: '#64748b' }}>Yesterday, 10:00 AM</p>
                 </div>
-                <span className="text-emerald-600 font-bold">+₹500</span>
+                <span style={{ color: '#059669', fontWeight: 'bold' }}>+₹500</span>
               </div>
             </div>
           </div>
         )}
 
         {activeTab === 'tips' && (
-          <div className="bg-white rounded-2xl p-6 border border-slate-200 shadow-sm space-y-3">
-            <h2 className="text-xl font-bold text-slate-900">AI Budget Tips</h2>
-            <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl text-blue-900 text-sm">
+          <div style={{ backgroundColor: '#ffffff', borderRadius: '16px', padding: '24px', border: '1px solid #e2e8f0' }}>
+            <h2 style={{ margin: '0 0 12px 0' }}>AI Budget Tips</h2>
+            <div style={{ backgroundColor: '#eff6ff', border: '1px solid #bfdbfe', padding: '16px', borderRadius: '12px', color: '#1e40af', fontSize: '14px' }}>
               💡 <strong>Smart Saving:</strong> You spent 20% less on stationery this week. Great job keeping your monthly budget on track!
             </div>
           </div>
