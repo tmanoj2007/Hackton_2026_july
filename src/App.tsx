@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { onAuthStateChanged, User } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from './firebase';
 
 import DashboardScreen from './components/DashboardScreen';
@@ -10,21 +10,23 @@ import TipsScreen from './components/TipsScreen';
 import ParentPortalScreen from './components/ParentPortalScreen';
 import AdminScreen from './components/AdminScreen';
 import LoginScreen from './components/LoginScreen';
-import UserProfileModal from './components/UserProfileModal';
-import NotificationCenter from './components/NotificationCenter';
 
 export default function App() {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState<string>('dashboard');
-  const [showProfile, setShowProfile] = useState(false);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    try {
+      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+        setLoading(false);
+      });
+      return () => unsubscribe();
+    } catch (err) {
+      console.error("Auth initialization error:", err);
       setLoading(false);
-    });
-    return () => unsubscribe();
+    }
   }, []);
 
   const handleNavigate = (tab: any) => {
@@ -39,6 +41,7 @@ export default function App() {
     );
   }
 
+  // If user is not logged in, render Login screen
   if (!user) {
     return <LoginScreen />;
   }
@@ -73,16 +76,6 @@ export default function App() {
                 </button>
               ))}
             </nav>
-
-            <div className="flex items-center gap-3">
-              <NotificationCenter />
-              <button
-                onClick={() => setShowProfile(true)}
-                className="w-9 h-9 rounded-full bg-blue-100 text-blue-700 font-semibold flex items-center justify-center hover:bg-blue-200 transition-colors"
-              >
-                {user.displayName ? user.displayName.charAt(0).toUpperCase() : user.email ? user.email.charAt(0).toUpperCase() : 'P'}
-              </button>
-            </div>
           </div>
         </div>
       </header>
@@ -102,13 +95,6 @@ export default function App() {
         {activeTab === 'parent' && <ParentPortalScreen />}
         {activeTab === 'admin' && <AdminScreen />}
       </main>
-
-      {showProfile && (
-        <UserProfileModal 
-          user={user} 
-          onClose={() => setShowProfile(false)} 
-        />
-      )}
     </div>
   );
 }
